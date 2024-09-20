@@ -1,0 +1,48 @@
+swagger: "2.0"
+info:
+  title: CPF Validation API
+  description: API for validating CPF numbers
+  version: "1.0"
+basePath: /
+schemes:
+  - http
+paths:
+  /validate/cpf:
+    post:
+      tags:
+        - CPF Validation
+      summary: Validate a CPF number
+      parameters:
+        - name: cpf
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              cpf:
+                type: string
+                example: "12345678901"
+      responses:
+        200:
+          description: A JSON object with validation result
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: "OK"
+              code:
+                type: integer
+                example: 200
+              data:
+                type: object
+                properties:
+                  cpf:
+                    type: string
+                    example: "12345678901"
+                  is_valid:
+                    type: boolean
+                    example: true
+              message:
+                type: string
+                example: "CPF informado é válido"
