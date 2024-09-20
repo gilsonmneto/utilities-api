@@ -79,7 +79,16 @@ def test_is_second_digit_valid_valid(cpf_validator):
     assert result is None
 
 
-# def test_is_cpf_valid_with_valid_cpf(cpf_validator):
-#     cpf = "27233565821"
-#     response = cpf_validator.is_cpf_valid(cpf)
-#     assert response["data"]["is_valid"] == True
+def test_is_cpf_valid_with_valid_cpf(cpf_validator):
+    cpf = "27233565821"
+    expected_response = {
+        "status": "OK",
+        "code": 200,
+        "data": {"cpf": cpf, "is_valid": True},
+        "message": "CPF informado é válido",
+    }
+    cpf_validator.response_factory.create_response = MagicMock(
+        return_value=expected_response
+    )
+    response = cpf_validator.is_cpf_valid(cpf)
+    assert response["data"]["is_valid"] == True
